@@ -1,0 +1,23 @@
+{
+  "name": "ssr-oppgaver",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/camoa016/SSR-oppgaver#readme",
+  "bugs": {
+    "url": "https://github.com/camoa016/SSR-oppgaver/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/camoa016/SSR-oppgaver.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "serve": "node index.js"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
