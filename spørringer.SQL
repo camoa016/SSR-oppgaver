@@ -14,9 +14,6 @@ INSERT INTO bilmerker (merke) VALUES
     ('Yugo'),
     ('Toyota');
 
-
-
-
 CREATE TABLE filmer (
     id SERIAL PRIMARY KEY,
     tittel VARCHAR(100) NOT NULL

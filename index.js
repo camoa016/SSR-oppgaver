@@ -16,7 +16,6 @@ const pool = new Pool({
     port: 5432,
 });
 
-
 // Vi setter opp en enkel "rute" (route) som svarer på
 // forespørsler til rotkatalogen, /:
 app.get('/', (req, res) => {
