@@ -64,3 +64,9 @@ JOIN
     filmer f ON f.id = sif.film_id
 ORDER BY 
     s.navn, f.id;
+
+SELECT * FROM users;
+DELETE FROM users;
+
+SELECT * FROM skuespillere;
+DELETE FROM skuespillere;

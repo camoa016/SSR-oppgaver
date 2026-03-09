@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <p>
+        <input id="name" placeholder="Navn på skuespiller" type="text">
+        <button id="add">Legg inn ny skuespiller</button>
+    </p>
+
+    <ul id="skuespillere">
+        <li>Henter data...</li>
+    </ul>
+
+    <!-- script -->
+    <script type="module">
+        function getUserName() {
+            const inputElement = document.getElementById('name');
+            return inputElement.value;
+        }
+
+        document.getElementById('add')
+            .addEventListener('click', async (event) => {
+                const userName = getUserName();
+                await sendData(userName);
+                const inputElement = document.getElementById("name");
+                inputElement.value = "";
+                hentData()
+            });
+
+
+        // Send Data function definition
+        async function sendData(userName) {
+            const data = { navn: userName };
+            const response = await fetch('/skuespillere', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+        }
+
+        // Hent Data funtion definition
+        function hentData() {
+            fetch('/skuespillere-json')
+                .then(response => response.json())
+                .then(data => {
+                    let list = document.getElementById('skuespillere');
+                    list.innerHTML = '';
+                    data.forEach(row => {
+                        let li = document.createElement('li');
+                        li.textContent = row.navn;
+                        list.appendChild(li);
+                    });
+                });
+        }
+        // run hentData on start
+        hentData()
+    </script>
+</body>
+
+</html>

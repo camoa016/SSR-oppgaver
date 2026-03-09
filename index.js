@@ -5,6 +5,7 @@ const express = require('express');
 // Deretter lager vi en ny instans av Express:
 const app = express();
 
+app.use(express.json());
 // Først refererer vi til driveren (som ligger i node_modules)
 const { Pool } = require('pg');
 
@@ -22,11 +23,24 @@ app.get('/', (req, res) => {
     res.send('Hello, world! Klokken er ' + new Date().toLocaleTimeString());
 });
 
+
+
 app.get('/her', (req, res) => {
     res.send(`
         <h1>Her er en overskrift</h1>
         <p>Og her er en paragraf</p>
     `);
+});
+
+// DELTAGERE
+app.post('/deltagere', async (req, res) => {
+    const data = req.body;
+    console.log('Lagrer deltager: ', data)
+    const query = 'INSERT INTO users (name) VALUES ($1)';
+    const values = [data.name];
+    await pool.query(query, values);
+    console.log('Lagret deltager: ', data)
+    res.send('Data lagret');
 });
 
 app.get('/deltagere-1', (req, res) => {
@@ -63,6 +77,7 @@ app.get('/deltagere-json', async (req, res) => {
     res.json(result.rows);
 });
 
+// BILMERKER
 app.get('/bilmerker', async (req, res) => {
     // Henter data fra databasen:
     const result = await pool.query('SELECT * FROM bilmerker');
@@ -86,6 +101,23 @@ app.get('/bilmerker-json', async (req, res) => {
     res.json(result.rows);
 });
 
+// SKUESPILLERE
+app.get('/skuespillere-json', async (req, res) => {
+    const result = await pool.query('SELECT * FROM skuespillere');
+    res.json(result.rows);
+});
+
+app.post('/skuespillere', async (req, res) => {
+    const data = req.body;
+    console.log('Lagrer skuespiller: ', data)
+    const query = 'INSERT INTO skuespillere (navn) VALUES ($1)';
+    const values = [data.navn];
+    await pool.query(query, values);
+    console.log('Lagret skuespiller: ', data)
+    res.send('Data lagret');
+});
+
+// SKUESPILLERE OG FILMER
 app.get('/skuespillere-og-filmer', async (req, res) => {
 
     const query = `
@@ -134,6 +166,7 @@ app.get('/skuespillere-og-filmer-json', async (req, res) => {
     res.json(result.rows);
 });
 
+// PUBLIC
 app.use(express.static('public'));
 
 // Så starter vi serveren, som nå lytter på port 3000:
