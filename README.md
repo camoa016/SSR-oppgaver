@@ -25,11 +25,17 @@ En Express.js-basert server-side rendering (SSR) applikasjon med PostgreSQL data
 
 3. **Start PostgreSQL med Docker**
    ```bash
-   docker run --rm --name my-postgres -p 5432:5432 -e POSTGRES_PASSWORD=mysecretpassword postgres
+   docker run --rm --name postgres -p 5432:5432 -e POSTGRES_PASSWORD=mysecretpassword postgres
    ```
    Åpne en ny terminal for neste steg.
 
-4. **Start applikasjonen**
+4. **Start PostGREST (optional) - i ny terminal**
+   ```bash
+   docker run --rm --name postgrest -p 3002:3000 -e PGRST_DB_URI=postgres://postgres:mysecretpassword@host.docker.internal:5432/postgres -e PGRST_DB_ANON_ROLE=postgres postgrest/postgrest
+   ```
+   PostGREST vil være tilgjengelig på `http://localhost:3002`
+
+5. **Start applikasjonen**
    
    **Produksjon:**
    ```bash
@@ -41,10 +47,9 @@ En Express.js-basert server-side rendering (SSR) applikasjon med PostgreSQL data
    npm run dev
    ```
 
-5. **Åpne i nettleseren**
-   ```
-   http://localhost:3000
-   ```
+6. **Åpne i nettleseren**
+   - Express-server: `http://localhost:3000`
+   - PostGREST REST API (hvis brukt): `http://localhost:3002`
 
 ## Teknologier
 
@@ -53,7 +58,8 @@ En Express.js-basert server-side rendering (SSR) applikasjon med PostgreSQL data
 - **PostgreSQL** - Relasjonsdatabase
 - **pg** - PostgreSQL-driver for Node.js
 - **nodemon** - Auto-reload under utvikling
-- **Docker** - Containerisering av database
+- **PostGREST** - Automatisk REST API fra PostgreSQL
+- **Docker** - Containerisering av database og PostGREST
 
 ## API-endepunkter
 
