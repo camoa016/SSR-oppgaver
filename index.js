@@ -23,8 +23,6 @@ app.get('/', (req, res) => {
     res.send('Hello, world! Klokken er ' + new Date().toLocaleTimeString());
 });
 
-
-
 app.get('/her', (req, res) => {
     res.send(`
         <h1>Her er en overskrift</h1>
@@ -114,6 +112,22 @@ app.post('/skuespillere', async (req, res) => {
     const values = [data.navn];
     await pool.query(query, values);
     console.log('Lagret skuespiller: ', data)
+    res.send('Data lagret');
+});
+
+// FILMER
+app.get('/filmer-json', async (req, res) => {
+    const result = await pool.query('SELECT * FROM filmer');
+    res.json(result.rows);
+});
+
+app.post('/filmer', async (req, res) => {
+    const data = req.body;
+    console.log('Lagrer film: ', data)
+    const query = 'INSERT INTO filmer (tittel) VALUES ($1)';
+    const values = [data.tittel];
+    await pool.query(query, values);
+    console.log('Lagret film: ', data)
     res.send('Data lagret');
 });
 

@@ -95,5 +95,6 @@ ISC
     Server side rendering med node.js og express
     Mer om Express og JSON API'er
     Ta i mot og lagre data i Express
+    Automatisk CRUD-API vha PostGREST
 
 funnet på https://tangen-2it-utvikling.netlify.app/

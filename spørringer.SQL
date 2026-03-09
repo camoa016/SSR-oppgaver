@@ -10,29 +10,30 @@ INSERT INTO users (name) VALUES
     ('Joe Biden'),
     ('Donald Trump'),
     ('Kamala Harris');
+
 INSERT INTO bilmerker (merke) VALUES
     ('Yugo'),
     ('Toyota');
+
+create table skuespillere (
+    id serial primary key,
+    navn varchar(100)
+);
+
+insert into skuespillere (navn) values
+    ('Tom Cruise'),
+    ('Angelina Jolie'),
+    ('Brad Pitt');
 
 CREATE TABLE filmer (
     id SERIAL PRIMARY KEY,
     tittel VARCHAR(100) NOT NULL
 );
 
-CREATE TABLE skuespillere  (
-    id SERIAL PRIMARY KEY,
-    navn VARCHAR(100) NOT NULL
-);
-
 INSERT INTO filmer (tittel) VALUES
     ('The Matrix'),
     ('The Matrix Reloaded'),
     ('The Matrix Revolutions');
-
-INSERT INTO skuespillere (navn) VALUES
-    ('Keanu Reeves'),
-    ('Laurence Fishburne'),
-    ('Carrie-Anne Moss');
 
 CREATE TABLE skuespiller_i_film (
     id SERIAL PRIMARY KEY,
@@ -70,3 +71,12 @@ DELETE FROM users;
 
 SELECT * FROM skuespillere;
 DELETE FROM skuespillere;
+
+SELECT * FROM filmer;
+DELETE FROM filmer;
+
+select table_schema, table_name
+from information_schema.tables
+where table_name = 'filmer';
+
+NOTIFY pgrst, 'reload schema';
